@@ -8,21 +8,24 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+import useTheme from '@mui/system/useTheme';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const theme = useTheme();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -36,93 +39,75 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{ backgroundColor: '#973535' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+          {theme.breakpoints.values.md <= theme.breakpoints.width && (
+            <Box sx={{ flexGrow: 1, display: { md: 'none' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {page}
-              </Button>
-            ))}
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: 'block', md: 'none' },
+                }}
+              >
+                
+              </Menu>
+            </Box>
+          )}
+
+          <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center' }}>
+            
+            <img
+              src="https://eapl15616.weebly.com/uploads/1/4/6/1/146126864/navbar-logo3-300x42_orig.png"  
+              alt="Your Logo Alt Text"
+              style={{
+                height: '40px',  
+                width: 'auto',  
+                maxWidth: '100%',  
+                marginRight: '8px',  
+              }}
+            />
+           
+            {theme.breakpoints.values.md > theme.breakpoints.width && (
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="#app-bar-with-responsive-menu"
+                sx={{
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+               
+              </Typography>
+            )}
+           
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -147,9 +132,14 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settings.map((setting, index) => (
+                <MenuItem key={setting} onClick={handleCloseUserMenu} sx={{ '&:hover': { backgroundColor: '#EEC01F', color: 'white' } }}>
+                  {index === 0 && <AccountCircleIcon sx={{ color: '#973535', mr: 1 }} />}
+                  {index === 1 && <DashboardIcon sx={{ color: '#973535', mr: 1 }} />}
+                  {index === 2 && <ExitToAppIcon sx={{ color: '#973535', mr: 1 }} />}
+                  <Typography textAlign="center" sx={{ color: 'inherit' }}>
+                    {setting}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -159,4 +149,5 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
 export default ResponsiveAppBar;

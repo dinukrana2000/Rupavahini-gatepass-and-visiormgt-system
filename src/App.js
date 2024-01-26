@@ -1,24 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import Visit1 from './pages/visit1';
+import Visit2 from './pages/visit2';
+import User from './pages/usersignup';
+import Staff from './pages/staffsignup';
+//import { useSession, useSupabaseClient } from '@supabase/auth-helpers-react';
 
 function App() {
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    
+ <div className="App">
+  
+     <Visit2/>
     </div>
+
+    
+   
   );
 }
 

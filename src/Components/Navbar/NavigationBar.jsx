@@ -15,9 +15,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
+
 const settings = ['Account', 'Dashboard', 'Logout'];
 
-function ResponsiveAppBar() {
+function NavigationBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const theme = useTheme();
@@ -147,7 +148,8 @@ function ResponsiveAppBar() {
         </Toolbar>
       </Container>
     </AppBar>
+    
   );
 }
 
-export default ResponsiveAppBar;
+export default NavigationBar;

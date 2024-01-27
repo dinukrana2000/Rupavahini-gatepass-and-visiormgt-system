@@ -1,12 +1,17 @@
-import React from 'react'
-import NavigationBar from '../../Components/Navbar/NavigationBar'
+import React from 'react';
+//import NavigationBar from '../../Components/Navbar/NavigationBar';
+import Drawer from '../../Components/Drawer/Drawer';
+
 function UserReq() {
   return (
+    <>
     <div>
-        <NavigationBar />
-        
+      <Drawer/>
     </div>
-  )
+   
+    </>
+  );
 }
 
-export default UserReq
+
+export default UserReq;

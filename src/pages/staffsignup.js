@@ -210,9 +210,9 @@ function Staff() {
                 <MenuItem value="division6">Division 6</MenuItem>
                 
               </Select>
-              {validationErrors.timeslot && (
+              {validationErrors.division && (
     <Typography variant="caption" color="error">
-      {validationErrors.timeslot}
+      {validationErrors.division}
     </Typography>
   )}
               </FormControl>

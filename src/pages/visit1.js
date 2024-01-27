@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Container,Paper,Typography,TextField,Button,Grid,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,} from '@mui/material';
 import { styled } from '@mui/system';
 import SubmitButton from '../components/SubmitButton';
+import BasicDateTimePicker from '../components/datetimeappointment';
 
 const StyledContainer = styled(Container)({
   height: '100vh',
@@ -49,13 +50,11 @@ function Visit1() {
     NIC : '',
     phonenumber : '',
     fullname_a : '',
-    appoinment_time : '',
-    appoinment_date : new Date().toISOString().split('T')[0],
+    selectedDateTime: null,
     reason : '',
   });
 
   const [validationErrors, setValidationErrors] = useState({});
-  
 
   const handleOpen = () => {
     setOpen(true);
@@ -70,8 +69,7 @@ function Visit1() {
       NIC : '',
       phonenumber : '',
       fullname_a : '',
-      appoinment_time : '',
-      appoinment_date : new Date().toISOString().split('T')[0],
+      selectedDateTime: null,
       reason : '',
     });
     setValidationErrors({});
@@ -95,10 +93,10 @@ function Visit1() {
       errors.phonenumber = 'Phone number is required';
     }
     if (!formData.fullname_a.trim()) {
-      errors.fullname_a = 'Full name for appointment is required';
+      errors.fullname_a = 'Full name is required';
     }
-    if (!formData.appoinment_time.trim()) {
-      errors.appoinment_time = 'Appointment time is required';
+    if (!formData.selectedDateTime) {
+      errors.selectedDateTime = 'Date and Time are required';
     }
     if (!formData.reason.trim()) {
       errors.reason = 'Reason is required';
@@ -130,6 +128,18 @@ function Visit1() {
       [name]: '', // Clear validation error when the field is edited
     }));
   };
+  const handleDateTimeChange = (date) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      selectedDateTime: date,
+    }));
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      selectedDateTime: '',
+    }));
+  };
+
+  
   const isValidEmail = (email) => {
     // email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -207,8 +217,7 @@ function Visit1() {
 
           <Typography variant="h6" style={useStyles.sectionTitle}>Appointment Request</Typography>
 
-          <Grid container spacing={2} style={useStyles.section}>
-            <Grid item xs={6}>
+            <Grid item xs={6} style={useStyles.section}>
               <TextField
                 variant="outlined"
                 fullWidth
@@ -223,39 +232,20 @@ function Visit1() {
                 helperText={validationErrors.fullname_a}
               />
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                id="appoinment_time"
-                label="Appointment time"
-                name="appoinment_time"
-                autoComplete="appoinment_time"
-                value={formData.appoinment_time}
-                onChange={handleInputChange}
-                error={!!validationErrors.appoinment_time}
-                helperText={validationErrors.appoinment_time}
+            <Grid style={useStyles.section}>
+            <BasicDateTimePicker
+                id="selectedDateTime"
+                value={formData.selectedDateTime}
+                handleDateTimeChange={handleDateTimeChange}
               />
+              {validationErrors.selectedDateTime && (
+                <Typography variant="caption" color="error">
+                  {validationErrors.selectedDateTime}
+                </Typography>
+              )}
+               
             </Grid>
-          </Grid>
-
-          <Grid container spacing={2} style={useStyles.section}>
-            <Grid item xs={6}>
-              <TextField
-                variant="outlined"
-                fullWidth
-                id="appoinment_date"
-                label="Appointment date"
-                name="appoinment_date"
-                autoComplete="appoinment_date"
-                type="date"
-                value={formData.appoinment_date}
-                onChange={handleInputChange}
-                error={!!validationErrors.appoinment_date}
-                helperText={validationErrors.appoinment_date}
-              />
-            </Grid>
-            <Grid item xs={6}>
+            <Grid style={useStyles.section}>
               <TextField
                 variant="standard"
                 fullWidth
@@ -270,10 +260,10 @@ function Visit1() {
                 
               />
             </Grid>
-          </Grid>
+        
 
           <Grid style={{ display: 'flex', justifyContent: 'center' }}>
-        <SubmitButton label="Sign Up" onClick={handleSubmit} /> 
+        <SubmitButton label="Submit" onClick={handleSubmit} /> 
         </Grid>
         
         </form>

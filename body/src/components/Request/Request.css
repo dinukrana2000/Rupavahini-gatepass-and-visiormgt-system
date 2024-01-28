@@ -3,7 +3,7 @@ body {
     margin: 0; 
     padding: 0; 
     height: 100vh; 
-    background-image: url('../../assets/userpage1.png'); 
+    background-image: url('../../assets/staff.png'); 
     background-size: cover; 
     background-position: center; 
     display: flex;
@@ -13,9 +13,9 @@ body {
   }
  
   .blur-image{
-    background-color:rgba(41, 147, 196, 0.651);
+    background-color:rgba(243, 242, 248, 0.651);
      border-radius: 50px;
-     box-shadow: 0px 4px 25px 0px rgba(255, 255, 255, 10);;
+     box-shadow: 0px 4px 25px 10px rgba(0, 0, 0, 10);;
     width: 80vw;
     height: 80vh;
     display: flex;
@@ -23,40 +23,16 @@ body {
     justify-content: center;
     align-items: center;
   }
-
-  .rectangle-col{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-  width: 50vw; 
-  height: 10vh; 
+  .request{
    
-   background-image: url('../../assets/request.png');
-  border-radius: 20px;
-  margin-bottom: 3vh;
-  
-}
-
-.rectangle{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30vw; 
+      height: 5vh; 
+     background-image: url('../../assets/view.png');
+    border-radius: 20px;
+    margin-bottom: 3vh;
     
-    font-size: larger;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.request{
-    border-color: black;
-}
-.request{
-    font-size: larger;
-    margin-left: 3vw;
-    border-color: black;
-}
-
-.cancel{
-    font-size: larger;
-    margin-right: 3vw;
-    border-color: black;
-}
+  
+  }

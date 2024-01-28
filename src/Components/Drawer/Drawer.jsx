@@ -25,6 +25,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
+
 const drawerWidth = 240;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }) => ({
@@ -46,6 +47,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
     padding: theme.spacing(2),
   },
 }));
+
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -93,7 +95,7 @@ const AvatarContainer = styled('div')(({ theme }) => ({
   alignItems: 'center',
   marginLeft: 'auto',
   [theme.breakpoints.down('sm')]: {
-    marginRight: theme.spacing(2), 
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -119,7 +121,7 @@ const ResponsiveMenuItem = styled(MenuItem)(({ theme }) => ({
   },
 }));
 
-export default function ResponsiveDrawer() {
+export default function ResponsiveDrawer({children}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [hoveredItem, setHoveredItem] = React.useState(null);
@@ -189,72 +191,69 @@ export default function ResponsiveDrawer() {
               onClick={handleMenuOpen}
             />
             <ResponsiveMenu
-  anchorEl={anchorEl}
-  open={Boolean(anchorEl)}
-  onClose={handleMenuClose}
-  anchorOrigin={{
-    vertical: 'top',
-    horizontal: 'right',
-  }}
-  transformOrigin={{
-    vertical: 'top',
-    horizontal: 'right',
-  }}
->
-  <ResponsiveMenuItem
-    onClick={() => {
-      handleMenuClose();
-      // Add your Account click logic here
-      console.log('Account Clicked');
-    }}
-    onMouseEnter={() => handleItemHover('Account')}
-    onMouseLeave={() => handleItemHover(null)}
-    style={{
-      color: hoveredItem === 'Account' ? '#eec01f' : '#973535',
-    }}
-  >
-    <ListItemIcon style={{ color: hoveredItem === 'Account' ? '#eec01f' : '#973535' }}>
-      <AccountCircleIcon />
-    </ListItemIcon>
-    Account
-  </ResponsiveMenuItem>
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <ResponsiveMenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  console.log('Account Clicked');
+                }}
+                onMouseEnter={() => handleItemHover('Account')}
+                onMouseLeave={() => handleItemHover(null)}
+                style={{
+                  color: hoveredItem === 'Account' ? '#eec01f' : '#973535',
+                }}
+              >
+                <ListItemIcon style={{ color: hoveredItem === 'Account' ? '#eec01f' : '#973535' }}>
+                  <AccountCircleIcon />
+                </ListItemIcon>
+                Account
+              </ResponsiveMenuItem>
 
-  <ResponsiveMenuItem
-    onClick={() => {
-      handleMenuClose();
-      // Add your Dashboard click logic here
-      console.log('Dashboard Clicked');
-    }}
-    onMouseEnter={() => handleItemHover('Dashboard')}
-    onMouseLeave={() => handleItemHover(null)}
-    style={{
-      color: hoveredItem === 'Dashboard' ? '#eec01f' : '#973535',
-    }}
-  >
-    <ListItemIcon style={{ color: hoveredItem === 'Dashboard' ? '#eec01f' : '#973535' }}>
-      <DashboardIcon />
-    </ListItemIcon>
-    Dashboard
-  </ResponsiveMenuItem>
+              <ResponsiveMenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  console.log('Dashboard Clicked');
+                }}
+                onMouseEnter={() => handleItemHover('Dashboard')}
+                onMouseLeave={() => handleItemHover(null)}
+                style={{
+                  color: hoveredItem === 'Dashboard' ? '#eec01f' : '#973535',
+                }}
+              >
+                <ListItemIcon style={{ color: hoveredItem === 'Dashboard' ? '#eec01f' : '#973535' }}>
+                  <DashboardIcon />
+                </ListItemIcon>
+                Dashboard
+              </ResponsiveMenuItem>
 
-  <ResponsiveMenuItem
-    onClick={() => {
-      handleMenuClose();
-      // Add your Logout click logic here
-      console.log('Logout Clicked');
-    }}
-    onMouseEnter={() => handleItemHover('Logout')}
-    onMouseLeave={() => handleItemHover(null)}
-    style={{
-      color: hoveredItem === 'Logout' ? '#eec01f' : '#973535',
-    }}
-  >
-    <ListItemIcon style={{ color: hoveredItem === 'Logout' ? '#eec01f' : '#973535' }}>
-      <ExitToAppIcon />
-    </ListItemIcon>
-    Logout
-  </ResponsiveMenuItem>
-</ResponsiveMenu>
+              <ResponsiveMenuItem
+                onClick={() => {
+                  handleMenuClose();
+                  console.log('Logout Clicked');
+                }}
+                onMouseEnter={() => handleItemHover('Logout')}
+                onMouseLeave={() => handleItemHover(null)}
+                style={{
+                  color: hoveredItem === 'Logout' ? '#eec01f' : '#973535',
+                }}
+              >
+                <ListItemIcon style={{ color: hoveredItem === 'Logout' ? '#eec01f' : '#973535' }}>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                Logout
+              </ResponsiveMenuItem>
+            </ResponsiveMenu>
           </AvatarContainer>
         </Toolbar>
       </AppBar>
@@ -265,6 +264,7 @@ export default function ResponsiveDrawer() {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            zIndex: 1,
           },
         }}
         variant={theme.breakpoints.down('sm') ? 'temporary' : 'persistent'}
@@ -278,37 +278,33 @@ export default function ResponsiveDrawer() {
           </IconButton>
         </DrawerHeader>
         <Divider />
-       
-<List>
-  {[
-    { text: 'Home', icon: <HomeIcon />, color: '#973535' },
-    { text: 'My Request', icon: <AssignmentIcon />, color: '#973535' },
-    { text: 'Log Out', icon: <LogoutIcon />, color: '#973535' },
-  ].map((item, index) => (
-    <ListItem key={item.text} disablePadding>
-      <ListItemButton
-        onClick={() => {
-          // Add your logic for Home, My Request, and Log Out here
-          console.log(`${item.text} Clicked`);
-        }}
-        onMouseEnter={() => handleItemHover(item.text)}
-        onMouseLeave={() => handleItemHover(null)}
-        sx={{
-          '&:hover': {
-            color: hoveredItem === item.text ? '#eec01f' : '#973535',
-          },
-          color: hoveredItem === item.text ? '#eec01f' : item.color,
-        }}
-      >
-        <ListItemIcon style={{ color: item.color }}>{item.icon}</ListItemIcon>
-        <ListItemText primary={item.text} />
-      </ListItemButton>
-    </ListItem>
-  ))}
-</List>
+        <List>
+          {[{ text: 'Home', icon: <HomeIcon />, color: '#973535' },
+            { text: 'My Request', icon: <AssignmentIcon />, color: '#973535' },
+            { text: 'Log Out', icon: <LogoutIcon />, color: '#973535' }].map((item, index) => (
+              <ListItem key={item.text} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    console.log(`${item.text} Clicked`);
+                  }}
+                  onMouseEnter={() => handleItemHover(item.text)}
+                  onMouseLeave={() => handleItemHover(null)}
+                  sx={{
+                    '&:hover': {
+                      color: hoveredItem === item.text ? '#eec01f' : '#973535',
+                    },
+                    color: hoveredItem === item.text ? '#eec01f' : item.color,
+                  }}
+                >
+                  <ListItemIcon style={{ color: item.color }}>{item.icon}</ListItemIcon>
+                  <ListItemText primary={item.text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+        </List>
       </Drawer>
       <Main open={open}>
-        
+       {children}
       </Main>
     </Box>
   );

@@ -1,9 +1,9 @@
 import './App.css';
-import Visit1 from './pages/visit1';
+import Visit2 from './pages/visit2';
 import User from './pages/usersignup';
 import Staff from './pages/staffsignup';
-import N from './pages/n';
-
+import StaffComplain from './pages/staffcomplain';
+import Visit1 from './pages/visit1';
 
 function App() {
   
@@ -11,7 +11,7 @@ function App() {
     
  <div className="App">
   
-     <Staff/>
+     <StaffComplain/>
     </div>
 
     

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import {Container,Paper,Typography,TextField,Button,Grid,Dialog,DialogActions,DialogContent,DialogContentText,DialogTitle,} from '@mui/material';
+import {Container,Paper,Typography,TextField,Grid} from '@mui/material';
 import { styled } from '@mui/system';
 import SubmitButton from '../components/SubmitButton';
 import BasicDateTimePicker from '../components/datetimeappointment';
+import ConfirmSubmission from '../components/submitconfirm';
 
 const StyledContainer = styled(Container)({
   height: '100vh',
@@ -45,13 +46,13 @@ const useStyles = {
 function Visit1() {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
-    fullname_v : '',
-    email : '',
-    NIC : '',
-    phonenumber : '',
-    fullname_a : '',
+    requesterName : '',
+    requesteremail : '',
+    requesterNIC : '',
+    requesterPhoneno : '',
+    officerName : '',
     selectedDateTime: null,
-    reason : '',
+    appoinmentReason : '',
   });
 
   const [validationErrors, setValidationErrors] = useState({});
@@ -64,13 +65,13 @@ function Visit1() {
     // Reset form-related state or perform cleanup if needed
     setOpen(false);
     setFormData({
-      fullname_v : '',
-      email : '',
-      NIC : '',
-      phonenumber : '',
-      fullname_a : '',
+      requesterName : '',
+      requesteremail : '',
+      requesterNIC : '',
+      requesterPhoneno : '',
+      officerName : '',
       selectedDateTime: null,
-      reason : '',
+      appoinmentReason : '',
     });
     setValidationErrors({});
   };
@@ -78,28 +79,28 @@ function Visit1() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = {};
-    if (!formData.fullname_v.trim()) {
-      errors.fullname_v = 'Full name is required';
+    if (!formData.requesterName.trim()) {
+      errors.requesterName = 'Full name is required';
     }
-    if (!formData.email.trim()) {
-      errors.email = 'Email is required';
-    } else if (!isValidEmail(formData.email)) {
-      errors.email = 'Invalid email format';
+    if (!formData.requesteremail.trim()) {
+      errors.requesteremail = 'Email is required';
+    } else if (!isValidEmail(formData.requesteremail)) {
+      errors.requesteremail = 'Invalid email format';
     }
-    if (!formData.NIC.trim()) {
-      errors.NIC = 'NIC is required';
+    if (!formData.requesterNIC.trim()) {
+      errors.requesterNIC = 'NIC is required';
     }
-    if (!formData.phonenumber.trim()) {
-      errors.phonenumber = 'Phone number is required';
+    if (!formData.requesterPhoneno.trim()) {
+      errors.requesterPhoneno = 'Phone number is required';
     }
-    if (!formData.fullname_a.trim()) {
-      errors.fullname_a = 'Full name is required';
+    if (!formData.officerName.trim()) {
+      errors.officerName = 'Full name is required';
     }
     if (!formData.selectedDateTime) {
       errors.selectedDateTime = 'Date and Time are required';
     }
-    if (!formData.reason.trim()) {
-      errors.reason = 'Reason is required';
+    if (!formData.appoinmentReason.trim()) {
+      errors.appoinmentReason = 'Reason is required';
     }
 
     // If there are validation errors, update state and prevent form submission
@@ -140,10 +141,10 @@ function Visit1() {
   };
 
   
-  const isValidEmail = (email) => {
+  const isValidEmail = (requesteremail) => {
     // email validation regex
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
+    return emailRegex.test(requesteremail);
   };
 
   return (
@@ -156,30 +157,28 @@ function Visit1() {
             <Grid item xs={6}>
               <TextField
                 variant="outlined"
-                fullWidth
-                id="fullname_v"
+                id="requesterName"
                 label="Full name"
-                name="fullname_v"
-                autoComplete="fullname"
+                name="requesterName"
+                autoComplete="requesterName"
                 autoFocus
-                value={formData.fullname_v}
+                value={formData.requesterName}
                 onChange={handleInputChange}
-                error={!!validationErrors.fullname_v}
-                helperText={validationErrors.fullname_v}
+                error={!!validationErrors.requesterName}
+                helperText={validationErrors.requesterName}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
                 variant="outlined"
-                fullWidth
-                id="email"
+                id="requesteremail"
                 label="Email Address"
-                name="email"
-                autoComplete="email"
-                value={formData.email}
+                name="requesteremail"
+                autoComplete="requesteremail"
+                value={formData.requesteremail}
                 onChange={handleInputChange}
-                error={!!validationErrors.email}
-                helperText={validationErrors.email}
+                error={!!validationErrors.requesteremail}
+                helperText={validationErrors.requesteremail}
               />
             </Grid>
           </Grid>
@@ -188,29 +187,27 @@ function Visit1() {
             <Grid item xs={6}>
               <TextField
                 variant="outlined"
-                fullWidth
-                id="nic"
+                id="requesterNIC"
                 label="NIC"
-                name="NIC"
-                autoComplete="nic"
-                value={formData.NIC}
+                name="requesterNIC"
+                autoComplete="requesterNIC"
+                value={formData.requesterNIC}
                 onChange={handleInputChange}
-                error={!!validationErrors.NIC}
-                helperText={validationErrors.NIC}
+                error={!!validationErrors.requesterNIC}
+                helperText={validationErrors.requesterNIC}
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
                 variant="outlined"
-                fullWidth
-                id="phonenumber"
+                id="requesterPhoneno"
                 label="Phone number"
-                name="phonenumber"
-                autoComplete="phonenumber"
-                value={formData.phonenumber}
+                name="requesterPhoneno"
+                autoComplete="requesterPhoneno"
+                value={formData.requesterPhoneno}
                 onChange={handleInputChange}
-                error={!!validationErrors.phonenumber}
-                helperText={validationErrors.phonenumber}
+                error={!!validationErrors.requesterPhoneno}
+                helperText={validationErrors.requesterPhoneno}
               />
             </Grid>
           </Grid>
@@ -219,17 +216,17 @@ function Visit1() {
 
             <Grid item xs={6} style={useStyles.section}>
               <TextField
-                variant="outlined"
                 fullWidth
-                id="fullname_a"
+                variant="outlined"
+                id="officerName"
                 label="Full name"
-                name="fullname_a"
-                autoComplete="fullname"
+                name="officerName"
+                autoComplete="officerName"
                 autoFocus
-                value={formData.fullname_a}
+                value={formData.officerName}
                 onChange={handleInputChange}
-                error={!!validationErrors.fullname_a}
-                helperText={validationErrors.fullname_a}
+                error={!!validationErrors.officerName}
+                helperText={validationErrors.officerName}
               />
             </Grid>
             <Grid style={useStyles.section}>
@@ -249,14 +246,14 @@ function Visit1() {
               <TextField
                 variant="standard"
                 fullWidth
-                id="reason"
+                id="appoinmentReason"
                 label="Reason"
-                name="reason"
-                autoComplete="reason"
-                value={formData.reason}
+                name="appoinmentReason"
+                autoComplete="appoinmentReason"
+                value={formData.appoinmentReason}
                 onChange={handleInputChange}
-                error={!!validationErrors.reason}
-                helperText={validationErrors.reason}
+                error={!!validationErrors.appoinmentReason}
+                helperText={validationErrors.appoinmentReason}
                 
               />
             </Grid>
@@ -270,22 +267,7 @@ function Visit1() {
       </StyledPaper>
 
       {/* Confirmation Dialog */}
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Confirm Submission</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Are you sure you want to submit the form?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            No
-          </Button>
-          <Button onClick={handleConfirmSubmit} color="primary" autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <ConfirmSubmission open={open} handleClose={handleClose} handleConfirmSubmit={handleConfirmSubmit} />
     </StyledContainer>
     </div>
   );

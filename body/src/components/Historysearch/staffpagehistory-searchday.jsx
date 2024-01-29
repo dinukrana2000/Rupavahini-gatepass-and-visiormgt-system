@@ -8,7 +8,10 @@ import { Link } from "react-router-dom";
 
 const Request = () => {
   const [clickedDate, setClickedDate] = useState("");
-  
+  const handleDateClick = (report) => {
+    setClickedDate(report);
+  };
+
   
   return (
     <div>
@@ -28,8 +31,7 @@ const Request = () => {
             </div>
             <div style={{marginLeft:"50px"}}>
               <Calender
-                clickedDate={clickedDate}
-                setClickedDate={setClickedDate}
+                onDateClick={handleDateClick}
               />
             </div>
           </Grid>

@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle'
 import "./Alert.css";
 
-const Alert = () => {
+const Alert = ({ requestId, onDelete }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -17,6 +17,11 @@ const Alert = () => {
     const handleClose = () => {
       setOpen(false);
     };
+    const handleDelete = () => {
+      // Call onDelete with the requestId when "ok" is clicked
+      onDelete(requestId);
+      setOpen(false); // Close the dialog
+  };
     const paperStyle = {
       backgroundColor: 'white',
       width:'500px',
@@ -57,7 +62,7 @@ the selected request ?
               borderRadius: "20px",width:"150px",
               "&:hover": {  backgroundColor:"#811F15",color: "#EEC01F" },
             }}>cancel</Button>
-        <Button onClick={handleClose} sx={{color:"white",
+        <Button onClick={handleDelete} sx={{color:"white",
               backgroundColor: "#973535",marginLeft:"20px",
               borderRadius: "20px",width:"150px",
               "&:hover": {  backgroundColor:"#811F15",color: "#EEC01F" },

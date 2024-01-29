@@ -1,12 +1,15 @@
 
 import './App.css';
-import Request from './components/Request/staffpagehistory-searchday';
-
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import Search from './components/Historysearch/staffpagehistory-searchday';
+import Activity from './components/staffpagehistory-activity-view/Activity';
 function App() {
   return (
-   <div>
-   <Request/>
-   </div>
+  
+    <Routes>
+      <Route  path="/" element={<Search/>}/>
+      <Route  path="/Search/:id/view" element={<Activity/>}/>
+      </Routes>
   );
 }
 

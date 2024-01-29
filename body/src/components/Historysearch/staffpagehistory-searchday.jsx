@@ -3,10 +3,13 @@ import "./Request.css";
 import Calender from "../Calender/Cal";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
+import { Link } from "react-router-dom";
+
 
 const Request = () => {
   const [clickedDate, setClickedDate] = useState("");
-
+  
+  
   return (
     <div>
       <div className="blur-image">
@@ -32,9 +35,10 @@ const Request = () => {
           </Grid>
           <Grid item xs={6}>
             <div className="request"> 
-            <Grid container xs={6}></Grid>
+            <Grid container ></Grid>
             <Grid item xs={6}>{clickedDate}</Grid>
-            <Grid item xs={6}><div><Button
+            <Grid item xs={6}><div>
+              <Link to={'/search/1/view'}><Button
             variant="contained"
             sx={{
               backgroundColor: "#973535",marginLeft:"20px",
@@ -45,6 +49,7 @@ const Request = () => {
           >
             view
           </Button>
+          </Link>
           </div></Grid>
             </div>
           </Grid>

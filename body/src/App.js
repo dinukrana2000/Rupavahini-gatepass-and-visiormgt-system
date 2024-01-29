@@ -1,6 +1,6 @@
 
 import './App.css';
-import Request from './components/Request/Request';
+import Request from './Pages/Request/Request';
 
 function App() {
   return (

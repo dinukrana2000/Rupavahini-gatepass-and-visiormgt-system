@@ -16,7 +16,7 @@ const StyledContainer = styled(Container)({
   });
   
   const StyledPaper = styled(Paper)({
-    padding: '20px',
+    padding: '4%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -203,17 +203,12 @@ const StyledContainer = styled(Container)({
                     </Typography>
                   )}
                 </Grid>
-  
+                    
                 <Grid item xs={10}>
                 <FormLabel id="timeslot">Time Slots</FormLabel>
                   {validationErrors.timeslot && (
                     <Typography variant="caption" color="error">
                       {validationErrors.timeslot}
-                    </Typography>
-                  )}
-                  {bookedTimeSlots.length > 0 && (
-                    <Typography variant="body2" style={{ marginBottom: '8px' }}>
-                      Previously selected time slots: {bookedTimeSlots.map((timeSlot, index) => timeSlot.bookedTimeSlots).join(', ')}
                     </Typography>
                   )}
                    <RadioGroup
@@ -222,15 +217,13 @@ const StyledContainer = styled(Container)({
                         value={formData.timeslot}
                         onChange={handleInputChange}
                     >
-                    {bookedTimeSlots.map((timeSlot, index) => (
-                      <FormControlLabel key={index} value={timeSlot} control={<Radio />} label={timeSlot} />
-                    ))}
                       <FormControlLabel value="9.00-10.30" control={<Radio />} label="9.00 AM - 10.30 AM" />
                       <FormControlLabel value="11.00-12.30" control={<Radio />} label="11.00 AM - 12.30 PM" />
                       <FormControlLabel value="1.00-2.30" control={<Radio />} label="1.00 PM - 2.30 PM" />
                       <FormControlLabel value="3.00-4.30" control={<Radio />} label="3.00 PM - 4.30 PM" />
                   </RadioGroup>
                 </Grid>
+                <Grid><Typography variant="body2">{bookedTimeSlots}</Typography></Grid>
               </Grid>
   
               <Typography variant="body2">If all time slots are booked, you can request any time period from here</Typography>
@@ -251,7 +244,7 @@ const StyledContainer = styled(Container)({
                 </Grid>
               </Grid>
   
-              <SubmitButton label="Next" onClick={handleSubmit} />
+              <SubmitButton label="Submit" onClick={handleSubmit} />
             </form>
           </StyledPaper>
   

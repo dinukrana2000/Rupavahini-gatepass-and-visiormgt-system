@@ -7,7 +7,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle'
 import "./Alert.css";
 
-const Alert = ({ requestId, onDelete }) => {
+const Alert = ({ requestId,type,onDelete }) => {
     const [open, setOpen] = React.useState(false);
 
     const handleClickOpen = () => {
@@ -19,7 +19,7 @@ const Alert = ({ requestId, onDelete }) => {
     };
     const handleDelete = () => {
       // Call onDelete with the requestId when "ok" is clicked
-      onDelete(requestId);
+      onDelete(requestId,type);
       setOpen(false); // Close the dialog
   };
     const paperStyle = {

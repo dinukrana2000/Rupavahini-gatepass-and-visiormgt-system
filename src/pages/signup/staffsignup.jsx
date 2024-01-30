@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import {Container,Paper,Grid,Typography,InputLabel,FormControl,TextField,Select,MenuItem} from '@mui/material';
 import { styled } from '@mui/system';
-import RightSideImage from '../../assets/signupimage/rafiki.png';
-import MuiButton from '../../components/Button/MuiButton';
-import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
+import RightSideImage from '../../Assets/signupimage/rafiki.png';
+import MuiButton from '../../Components/Button/MuiButton';
+import ConfirmSubmission from '../../Components/confirmsubmission/submitconfirm';
 import Box from '@mui/system/Box';
 import axios, { Axios } from 'axios';
 

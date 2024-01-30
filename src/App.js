@@ -1,9 +1,9 @@
 import './App.css';
-import Visit2 from './pages/visit/visit2';
-import User from './pages/signup/usersignup';
-import Staff from './pages/signup/staffsignup';
-import StaffComplain from './pages/staffcomplain/staffcomplain';
-import Visit1 from './pages/visit/visit1';
+import Visit2 from './Pages/visit/visit2';
+import User from './Pages/signup/usersignup';
+import Staff from './Pages/signup/staffsignup';
+import StaffComplain from './Pages/staffcomplain/staffcomplain';
+import Visit1 from './Pages/visit/visit1';
 
 function App() {
   

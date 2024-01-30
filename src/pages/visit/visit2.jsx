@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {Container,Paper,Typography,TextField,Grid,Radio,FormControlLabel,RadioGroup,FormLabel} from '@mui/material';
 import { styled } from '@mui/system';
-import MuiButton from '../../components/Button/MuiButton';
-import BasicDatePicker from '../../components/datepicker/datepicker';
-import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
-import Drawer from '../../components/Drawer/Drawer';
+import MuiButton from '../../Components/Button/MuiButton';
+import BasicDatePicker from '../../Components/datepicker/datepicker';
+import ConfirmSubmission from '../../Components/confirmsubmission/submitconfirm';
+import Drawer from '../../Components/Drawer/Drawer';
 import Box from '@mui/system/Box';
 import dayjs from 'dayjs';
 import axios from 'axios';

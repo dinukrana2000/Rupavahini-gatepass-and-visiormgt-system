@@ -11,8 +11,8 @@ const BasicDatePicker = ({id,value,handleDateChange}) => {
       <DemoContainer components={['DatePicker']}>
         <DatePicker label="Date" 
             id = {id}
-            value={dayjs(value)} // Set the selected date from the parent component's state
-            onChange={handleDateChange}// Handle date change and update parent component's state 
+            value={dayjs(value)}
+            onChange={handleDateChange}
         />
       </DemoContainer>
     </LocalizationProvider>

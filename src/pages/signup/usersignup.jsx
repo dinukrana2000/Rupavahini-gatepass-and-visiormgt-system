@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Grid, Typography, TextField, Container, Paper } from '@mui/material';
 import { styled } from '@mui/system';
-import RightSideImage from '../assets/rafiki.png';
-import SubmitButton from '../components/SubmitButton';
-import ConfirmSubmission from '../components/submitconfirm';
-import Drawer from '../components/Drawer/Drawer';
+import RightSideImage from '../../assets/rafiki.png';
+import MuiButton from '../../components/Button/MuiButton';
+import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
+import Drawer from '../../components/Drawer/Drawer';
 import Box from '@mui/system/Box';
 import axios from 'axios';
 
@@ -235,7 +235,7 @@ function User() {
                     style={useStyles.section}
                   />
                   <Grid style={{ display: 'flex', justifyContent: 'center' }}>
-                    <SubmitButton label="Sign Up" onClick={handleSubmit} />
+                    <MuiButton label="Sign Up" onClick={handleSubmit} />
                   </Grid>
                 </Grid>
                 <Grid item xs={12} sm={6} display={{ xs: 'none', sm: 'block' }}>

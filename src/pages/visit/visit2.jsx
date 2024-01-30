@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Container,Paper,Typography,TextField,Grid,Radio,FormControlLabel,RadioGroup,FormLabel} from '@mui/material';
 import { styled } from '@mui/system';
-import SubmitButton from '../components/SubmitButton';
+import MuiButton from '../components/MuiButton';
 import BasicDatePicker from '../components/datepicker';
 import ConfirmSubmission from '../components/submitconfirm';
 import Drawer from '../components/Drawer/Drawer';
@@ -244,7 +244,7 @@ const StyledContainer = styled(Container)({
                 </Grid>
               </Grid>
   
-              <SubmitButton label="Submit" onClick={handleSubmit} />
+              <MuiButton label="Submit" onClick={handleSubmit} />
             </form>
           </StyledPaper>
   

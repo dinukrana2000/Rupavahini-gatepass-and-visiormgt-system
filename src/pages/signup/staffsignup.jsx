@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import {Container,Paper,Grid,Typography,InputLabel,FormControl,TextField,Select,MenuItem} from '@mui/material';
 import { styled } from '@mui/system';
-import RightSideImage from '../assets/rafiki.png';
-import SubmitButton from '../components/SubmitButton';
-import ConfirmSubmission from '../components/submitconfirm';
-import Drawer from '../components/Drawer/Drawer';
+import RightSideImage from '../../assets/rafiki.png';
+import MuiButton from '../../components/Button/MuiButton';
+import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
 import Box from '@mui/system/Box';
 
 const StyledContainer = styled(Container)({
@@ -33,7 +32,7 @@ const useStyles = {
   sectionTitle: {
     textAlign: 'center',
     fontFamily: 'Montserrat, sans-serif',
-    letterSpacing: '1dvh',
+    letterSpacing: '2px',
     fontWeight: 'bold',
     marginBottom: '10px',
   },
@@ -151,8 +150,6 @@ function Staff() {
 
   return (
     <Box>
-      <Drawer/>
-    
     <div style={useStyles.bg}>
     <Grid container sx={{width: '100%'}}>
       <StyledContainer maxWidth="lg">
@@ -280,7 +277,7 @@ function Staff() {
                 </Grid>
           </Grid>
                 <Grid style={{ display: 'flex', justifyContent: 'center' }}>
-                  <SubmitButton label="Sign Up" onClick={handleSubmit} />
+                  <MuiButton label="Sign Up" onClick={handleSubmit} />
                 </Grid>
               </Grid>
 
@@ -299,7 +296,6 @@ function Staff() {
       </StyledContainer>
       </Grid>
     </div>
-
     </Box>
 
     

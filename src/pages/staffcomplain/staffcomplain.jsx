@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {Container,Paper,Typography,TextField,Grid} from '@mui/material';
 import { styled } from '@mui/system';
 import Box from '@mui/system/Box';
-import SubmitButton from '../components/SubmitButton';
-import BasicDatePicker from '../components/datepicker';
-import ConfirmSubmission from '../components/submitconfirm';
-import Drawer from '../components/Drawer/Drawer';
+import MuiButton from '../../components/Button/MuiButton';
+import BasicDatePicker from '../../components/datepicker/datepicker';
+import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
+import Drawer from '../../components/Drawer/Drawer';
 
 const StyledContainer = styled(Container)({
     height: '110vh',
@@ -242,7 +242,7 @@ function StaffComplain() {
         
 
           <Grid style={{ display: 'flex', justifyContent: 'center' }}>
-        <SubmitButton label="Submit" onClick={handleSubmit} /> 
+        <MuiButton label="Submit" onClick={handleSubmit} /> 
         </Grid>
         
         </form>

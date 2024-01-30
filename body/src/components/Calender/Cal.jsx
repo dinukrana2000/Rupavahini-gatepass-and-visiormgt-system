@@ -7,32 +7,11 @@ import dayjs from 'dayjs';
 import './Calender.css';
 
 
-const Cal = ({onDateClick}) => {
+const Cal = ({clickedDate, setClickedDate}) => {
   
-  const reports = {
-    2021: {
-      1: {
-        1: '2021 January 1 report',
-        // Add more reports for January if needed
-      },
-      // Add more months for 2021 if needed
-    },
-    // Add more years if needed
-  };
-  const [clickedReport, setClickedReport] = useState('');
+  
 
-const handleClick = (value) => {
-    const clickedDate = value.$D;
-    const clickedMonth = value.$M + 1;
-    const clickedYear = value.$y;
 
-    // Check if there's a report available for the clicked date
-    const report = reports[clickedYear]?.[clickedMonth]?.[clickedDate] || '';
-
-    setClickedReport(report);
-
-    console.log('Clicked Report:', report);
-  };
   return (
  
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -42,7 +21,17 @@ const handleClick = (value) => {
         referenceDate={dayjs('2023-04-17')}
         views={['year', 'month', 'day']}
         className='calender'
-        onChange={handleClick}
+        onChange={(value)=>{
+          const clickedDate = value.$D;
+        const clickedMonth = value.$M + 1;
+        const clickedYear = value.$y;
+
+        setClickedDate(`${clickedDate}/${clickedMonth}/${clickedYear}`);
+
+        console.log('Date:', clickedDate);
+        console.log('Month:', clickedMonth);
+        console.log('Year:', clickedYear);
+        }}
       />
     </DemoContainer>
   </LocalizationProvider>

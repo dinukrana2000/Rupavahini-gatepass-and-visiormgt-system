@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import "./Request.css";
-import Calender from "../Calender/Cal";
+import Calender from "../../Calender/Cal";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import Drawer from "../../Drawer/Drawer";
 
 
 const Request = () => {
   const [clickedDate, setClickedDate] = useState("");
-  const handleDateClick = (report) => {
-    setClickedDate(report);
-  };
-
-  
+ 
   return (
+    <>
+    <Drawer/>
     <div>
       <div className="blur-image">
         <Grid container className="con" spacing={2}>
@@ -31,7 +30,8 @@ const Request = () => {
             </div>
             <div style={{marginLeft:"50px"}}>
               <Calender
-                onDateClick={handleDateClick}
+                 clickedDate={clickedDate}
+                 setClickedDate={setClickedDate}
               />
             </div>
           </Grid>
@@ -58,6 +58,7 @@ const Request = () => {
         </Grid>
       </div>
     </div>
+    </>
   );
 };
 

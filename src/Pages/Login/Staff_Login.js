@@ -56,6 +56,12 @@ function Staff_login() {
       }
   };
 
+  const handleConfirmSubmit = () => {
+    console.log('Form submited!', formData);
+    const response =  axios.post`(http://localhost:4000/api/reservation/filter,formData )`;
+    handleClose();
+};
+
   const handleInputChange = (e) => {
       const {name, value} = e.target;
       setFormData((prevFormData) => ({

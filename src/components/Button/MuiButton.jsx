@@ -4,11 +4,13 @@ import { Button } from '@mui/material';
 
 const ButtonStyle = styled(Button) ({
       backgroundColor: '#973535',
-      borderRadius: '40px',
+      borderRadius: '66px',
+      fontFamily: 'Montserrat, sans-serif',
+      letterSpacing:'2px',
       width: '150px',
       height: '50px',
-      marginTop: '10%',
-      fontSize: '20px',
+      marginTop: '2%',
+      fontSize: '15px',
       transition:'transform 0.3s',
       '&:hover' : {
         backgroundColor: '#973535',

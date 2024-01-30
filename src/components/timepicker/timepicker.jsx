@@ -9,9 +9,9 @@ const BasicTimePicker = ({ id, value, handleTimeChange }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DemoContainer components={['TimePicker']}>
-        <TimePicker
+        <TimePicker label="Time"
           id={id}
-          value={dayjs(value)} // Set the selected date from the parent component's state
+          value={dayjs(value)} 
           onChange={handleTimeChange}
         />
       </DemoContainer>

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { Grid, Typography, TextField, Container, Paper } from '@mui/material';
 import { styled } from '@mui/system';
-import RightSideImage from '../../assets/rafiki.png';
+import RightSideImage from '../../assets/signupimage/rafiki.png';
 import MuiButton from '../../components/Button/MuiButton';
 import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
 import Drawer from '../../components/Drawer/Drawer';
 import Box from '@mui/system/Box';
-import axios from 'axios';
 
 const StyledContainer = styled(Container)({
   minHeight: '110vh',

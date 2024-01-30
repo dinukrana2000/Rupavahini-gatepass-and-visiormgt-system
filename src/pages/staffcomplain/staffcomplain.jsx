@@ -8,7 +8,7 @@ import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm'
 import Drawer from '../../components/Drawer/Drawer';
 
 const StyledContainer = styled(Container)({
-    height: '110vh',
+    height: '100vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -19,6 +19,7 @@ const StyledContainer = styled(Container)({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    
   });
   
   const useStyles = {
@@ -137,7 +138,7 @@ function StaffComplain() {
     }));
   };
   return (
-
+    
     <Box>
       <Drawer/>
     
@@ -147,7 +148,7 @@ function StaffComplain() {
       <StyledPaper elevation={3}>
       <Typography variant="h6" style={useStyles.sectionTitle}>Personal Details</Typography>
         <form style={useStyles.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2} >
+          <Grid container spacing={2} style={useStyles.section}>
             <Grid item xs={6}>
               <TextField
                 variant="outlined"

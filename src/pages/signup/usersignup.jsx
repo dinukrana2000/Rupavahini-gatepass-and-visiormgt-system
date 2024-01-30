@@ -6,6 +6,7 @@ import MuiButton from '../../components/Button/MuiButton';
 import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
 import Drawer from '../../components/Drawer/Drawer';
 import Box from '@mui/system/Box';
+import axios from 'axios';
 
 const StyledContainer = styled(Container)({
   minHeight: '110vh',
@@ -107,18 +108,14 @@ function User() {
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
     } else {
-      {/*try {
-        const response = await axios.post('https://localhost:4000/userRegister', formData);
-      console.log('Backend response:', response.data);*/}
         handleOpen();
-    {/*}} catch (error) {
-        console.error('Error while making the POST request:', error);
-      }*/}
+   
     }
   };
 
   const handleConfirmSubmit = () => {
     console.log('Form submitted!', formData);
+    const response =  axios.post(`http://localhost:4000/api/reservation/filter`,formData );
     handleClose();
   };
 

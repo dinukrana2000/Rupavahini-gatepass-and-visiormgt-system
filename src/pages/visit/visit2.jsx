@@ -53,7 +53,7 @@ const StyledContainer = styled(Container)({
       timeslot: '',
       note: '',
     });
-    const [bookedTimeSlots, setBookedTimeSlots] = useState([]);
+    const [bookedTimeSlots, setBookedTimeSlots] = useState();
     const [validationErrors, setValidationErrors] = useState({});
     const [data,setData] = useState([]);
 
@@ -93,6 +93,7 @@ const StyledContainer = styled(Container)({
   
     const handleConfirmSubmit = () => {
       console.log('Form submitted!', formData);
+      const response =  axios.post(`http://localhost:4000/api/reservation/filter`,formData );
       handleClose();
     };
   
@@ -121,7 +122,7 @@ const StyledContainer = styled(Container)({
     };
     const fetchVisitDate = async (date) => {
 
-      const formattedDate = dayjs(date).format('YYYY-MM-DD');
+      const dateofArrival  = dayjs(date).format('YYYY-MM-DD');
   
       try {
         const response = await axios.get(
@@ -131,9 +132,9 @@ const StyledContainer = styled(Container)({
         const responseData = response.data;
   
         // If responseData is an array of objects
-        const visitDay = responseData.map((timeslot, index) => (
+        const visitDay = responseData.map((Timeslot, index) => (
           <div key={index} style={{}}>
-            <p>Booked Time Slots : {timeslot.bookedTimeSlots}</p>
+            <p>Booked Time Slots : {Timeslot.timeslot}</p>
           </div>
         ));
   

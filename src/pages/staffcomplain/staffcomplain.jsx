@@ -6,6 +6,7 @@ import MuiButton from '../../components/Button/MuiButton';
 import BasicDatePicker from '../../components/datepicker/datepicker';
 import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
 import Drawer from '../../components/Drawer/Drawer';
+import axios, { Axios } from 'axios';
 
 const StyledContainer = styled(Container)({
     height: '100vh',
@@ -112,6 +113,7 @@ function StaffComplain() {
   const handleConfirmSubmit = () => {
     
     console.log('Form submitted!',formData);
+    const response =  axios.post(`http://localhost:4000/api/reservation/filter`,formData );
     handleClose();
   };
 

@@ -5,6 +5,7 @@ import RightSideImage from '../../assets/signupimage/rafiki.png';
 import MuiButton from '../../components/Button/MuiButton';
 import ConfirmSubmission from '../../components/confirmsubmission/submitconfirm';
 import Box from '@mui/system/Box';
+import axios, { Axios } from 'axios';
 
 const StyledContainer = styled(Container)({
   height: '110vh',
@@ -124,10 +125,12 @@ function Staff() {
       handleOpen();
       
     }
+
   };
 
   const handleConfirmSubmit = () => {
     console.log('Form submitted!', formData);
+    const response =  axios.post(`http://localhost:4000/api/reservation/filter`,formData );
     handleClose();
   };
 

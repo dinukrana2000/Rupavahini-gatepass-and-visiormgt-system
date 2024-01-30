@@ -19,9 +19,10 @@ const CenteredContent = styled('div')({
 });
 
 const BodyWithBackground = styled('div')({
-  backgroundImage: 'url("https://eapl15616.weebly.com/uploads/1/4/6/1/146126864/minimal-amazing-interior-design_orig.jpg")',
+  backgroundImage: 'url("https://rupavahini.lk/wp-content/uploads/2023/11/cad7c966-9caa-45f8-aa6f-4cf6bbd54ded.jpeg")',
   backgroundSize: 'cover',
   height: '100vh',
+  width: '100vw',
   overflow: 'hidden',
 });
 

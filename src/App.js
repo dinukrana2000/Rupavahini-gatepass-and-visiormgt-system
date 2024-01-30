@@ -10,8 +10,11 @@ function App() {
   return (
     
  <div className="App">
-  
-     <StaffComplain/>
+    {/* <User/>*/}
+    {/* <Staff/>*/}
+    { <Visit1/>}
+    {/* <Visit2/>*/}
+    {/* <StaffComplain/>*/}
     </div>
 
     

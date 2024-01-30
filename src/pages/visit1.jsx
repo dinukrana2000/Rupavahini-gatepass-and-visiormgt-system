@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import {Container,Paper,Typography,TextField,Grid} from '@mui/material';
 import { styled } from '@mui/system';
 import SubmitButton from '../components/SubmitButton';
-import BasicDateTimePicker from '../components/datetimeappointment';
+import BasicDatePicker from '../components/datepicker';
 import ConfirmSubmission from '../components/submitconfirm';
+import BasicTimePicker from '../components/timepicker';
+import Drawer from '../components/Drawer/Drawer';
+import Box from '@mui/system/Box';
 
 const StyledContainer = styled(Container)({
-  height: '100vh',
+  height: '110vh',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -35,7 +38,8 @@ const useStyles = {
     fontFamily: 'Montserrat, sans-serif',
     letterSpacing: '2px',
     fontWeight: 'bold',
-    marginTop: '20px'  
+    marginTop: '10px'  ,
+    marginBottom:'10px'
   },
 
   bg:{
@@ -51,7 +55,6 @@ function Visit1() {
     requesterNIC : '',
     requesterPhoneno : '',
     officerName : '',
-    selectedDateTime: null,
     appoinmentReason : '',
   });
 
@@ -62,7 +65,6 @@ function Visit1() {
   };
 
   const handleClose = () => {
-    // Reset form-related state or perform cleanup if needed
     setOpen(false);
     setFormData({
       requesterName : '',
@@ -70,7 +72,6 @@ function Visit1() {
       requesterNIC : '',
       requesterPhoneno : '',
       officerName : '',
-      selectedDateTime: null,
       appoinmentReason : '',
     });
     setValidationErrors({});
@@ -91,29 +92,34 @@ function Visit1() {
       errors.requesterNIC = 'NIC is required';
     }
     if (!formData.requesterPhoneno.trim()) {
-      errors.requesterPhoneno = 'Phone number is required';
+      errors.requesterPhoneno = 'Contact number is required';
+    } else if (!/^\d{10}$/.test(formData.requesterPhoneno)) {
+      errors.requesterPhoneno = 'Contact number must be 10 digits long';
     }
     if (!formData.officerName.trim()) {
       errors.officerName = 'Full name is required';
     }
-    if (!formData.selectedDateTime) {
-      errors.selectedDateTime = 'Date and Time are required';
+    if (!formData.appoinmentDate) {
+      errors.appoinmentDate = 'Date is required';
+    }
+    if (!formData.appoinmentTime) {
+      errors.appoinmentTime = 'Time is required';
     }
     if (!formData.appoinmentReason.trim()) {
       errors.appoinmentReason = 'Reason is required';
     }
 
-    // If there are validation errors, update state and prevent form submission
+  
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
     } else {
-      // If no validation errors, proceed with form submission
+      
       handleOpen();
     }
   };
 
   const handleConfirmSubmit = () => {
-    // Handle form submission logic here
+    
     console.log('Form submitted!',formData);
     handleClose();
   };
@@ -126,34 +132,50 @@ function Visit1() {
     }));
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
-      [name]: '', // Clear validation error when the field is edited
+      [name]: '', 
     }));
   };
-  const handleDateTimeChange = (date) => {
+  const handleDateChange = (date) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      selectedDateTime: date,
+      appoinmentDate: date,
     }));
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
-      selectedDateTime: '',
+      appoinmentDate: '',
     }));
+  };
+  const handleTimeChange = (time) => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      appoinmentTime: time,
+    }));
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      appoinmentTime: '',
+    }));
+    
   };
 
   
   const isValidEmail = (requesteremail) => {
-    // email validation regex
+    // email validation 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(requesteremail);
   };
 
   return (
+
+    <Box>
+      <Drawer/>
+    
     <div style={useStyles.bg}>
-    <StyledContainer component="main" maxWidth="lg">
+    <Grid container sx={{width: '100%'}}>
+    <StyledContainer maxWidth="lg">
       <StyledPaper elevation={3}>
       <Typography variant="h6" style={useStyles.sectionTitle}>Visitor Details</Typography>
         <form style={useStyles.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2} style={useStyles.section}>
+          <Grid container spacing={2}>
             <Grid item xs={6}>
               <TextField
                 variant="outlined"
@@ -161,7 +183,6 @@ function Visit1() {
                 label="Full name"
                 name="requesterName"
                 autoComplete="requesterName"
-                autoFocus
                 value={formData.requesterName}
                 onChange={handleInputChange}
                 error={!!validationErrors.requesterName}
@@ -214,7 +235,7 @@ function Visit1() {
 
           <Typography variant="h6" style={useStyles.sectionTitle}>Appointment Request</Typography>
 
-            <Grid item xs={6} style={useStyles.section}>
+            <Grid>
               <TextField
                 fullWidth
                 variant="outlined"
@@ -222,26 +243,40 @@ function Visit1() {
                 label="Full name"
                 name="officerName"
                 autoComplete="officerName"
-                autoFocus
                 value={formData.officerName}
                 onChange={handleInputChange}
                 error={!!validationErrors.officerName}
                 helperText={validationErrors.officerName}
               />
             </Grid>
-            <Grid style={useStyles.section}>
-            <BasicDateTimePicker
-                id="selectedDateTime"
-                value={formData.selectedDateTime}
-                handleDateTimeChange={handleDateTimeChange}
-              />
-              {validationErrors.selectedDateTime && (
-                <Typography variant="caption" color="error">
-                  {validationErrors.selectedDateTime}
-                </Typography>
-              )}
-               
-            </Grid>
+            <Grid container spacing={2} style={useStyles.section}>
+                <Grid item xs={6}>
+                  <BasicDatePicker
+                    id="appoinmentDate"
+                    value={formData.appoinmentDate}
+                    handleDateChange={handleDateChange}
+                  />
+                  {validationErrors.appoinmentDate && (
+                    <Typography variant="caption" color="error">
+                      {validationErrors.appoinmentDate}
+                    </Typography>
+                  )}
+                </Grid>
+  
+                <Grid item xs={6}>
+                <BasicTimePicker
+                    id="appoinmentTime"
+                    label="Appointment Time"
+                    value={formData.appoinmentTime}
+                    handleTimeChange={handleTimeChange}
+                />
+                {validationErrors.appoinmentTime && (
+                    <Typography variant="caption" color="error">
+                      {validationErrors.appoinmentTime}
+                    </Typography>
+                  )}
+                </Grid>
+              </Grid>
             <Grid style={useStyles.section}>
               <TextField
                 variant="standard"
@@ -269,7 +304,10 @@ function Visit1() {
       {/* Confirmation Dialog */}
       <ConfirmSubmission open={open} handleClose={handleClose} handleConfirmSubmit={handleConfirmSubmit} />
     </StyledContainer>
+    </Grid>
     </div>
+
+    </Box>
   );
 }
 

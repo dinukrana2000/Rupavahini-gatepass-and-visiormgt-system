@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Container,Paper,Typography,TextField,Grid,Radio,FormControlLabel,RadioGroup,FormLabel} from '@mui/material';
 import { styled } from '@mui/system';
 import SubmitButton from '../components/SubmitButton';
 import BasicDatePicker from '../components/datepicker';
 import ConfirmSubmission from '../components/submitconfirm';
-
+import Drawer from '../components/Drawer/Drawer';
+import Box from '@mui/system/Box';
+import dayjs from 'dayjs';
+import axios from 'axios';
 const StyledContainer = styled(Container)({
-    height: '100vh',
+    height: '110vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -48,11 +51,11 @@ const StyledContainer = styled(Container)({
       category: '',
       timeslot: '',
       note: '',
-      dateofArrival: null,
     });
-  
+    const [bookedTimeSlots, setBookedTimeSlots] = useState([]);
     const [validationErrors, setValidationErrors] = useState({});
-  
+    const [data,setData] = useState([]);
+
     const handleOpen = () => {
       setOpen(true);
     };
@@ -63,7 +66,6 @@ const StyledContainer = styled(Container)({
         category: '',
         timeslot: '',
         note: '',
-        dateofArrival: null,
       });
       setValidationErrors({});
     };
@@ -114,14 +116,60 @@ const StyledContainer = styled(Container)({
         ...prevErrors,
         dateofArrival: '',
       }));
+      fetchVisitDate(date);
+    };
+    const fetchVisitDate = async (date) => {
+
+      const formattedDate = dayjs(date).format('YYYY-MM-DD');
+  
+      try {
+        const response = await axios.get(
+         // http://localhost:4000/api//filter/${formattedDate}
+        );
+        console.log("Response Data:", response.data);
+        const responseData = response.data;
+  
+        // If responseData is an array of objects
+        const visitDay = responseData.map((timeslot, index) => (
+          <div key={index} style={{}}>
+            <p>Booked Time Slots : {timeslot.bookedTimeSlots}</p>
+          </div>
+        ));
+  
+        
+        setBookedTimeSlots(visitDay);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
   
+    //load data from database 
+  
+    useEffect(()=>{
+      const apiUrl ='http://localhost:4000/api//filter/2023-01-31'; //  actual endpoint
+
+      axios.get(apiUrl)
+        .then(response => {
+          // Handle the data received from the backend
+          setData(response.data);
+        })
+        .catch(error => {
+          
+          console.error('Error fetching data:', error);
+        });
+    },[]);
+  
+  
     return (
-      <div style={useStyles.bg}>
+      <Box>
+      <Drawer/>
+    
+    <div style={useStyles.bg}>
+    <Grid container sx={{width: '100%'}}>
         <StyledContainer component="main" maxWidth="lg">
           <StyledPaper elevation={3}>
             <form style={useStyles.form} onSubmit={handleSubmit}>
-              <Grid item xs={8}>
+              <Grid>
                 <FormLabel id="category">Category</FormLabel>
                 {validationErrors.category && (
                   <Typography variant="caption" color="error">
@@ -156,23 +204,31 @@ const StyledContainer = styled(Container)({
                   )}
                 </Grid>
   
-                <Grid item xs={8}>
-                  <FormLabel id="timeslot">Time Slots</FormLabel>
+                <Grid item xs={10}>
+                <FormLabel id="timeslot">Time Slots</FormLabel>
                   {validationErrors.timeslot && (
                     <Typography variant="caption" color="error">
                       {validationErrors.timeslot}
                     </Typography>
                   )}
-                  <RadioGroup
-                    aria-labelledby="timeslot"
-                    name="timeslot"
-                    value={formData.timeslot}
-                    onChange={handleInputChange}
-                  >
-                    <FormControlLabel value="9.00-10.30" control={<Radio />} label="9.00 AM - 10.30 AM" />
-                    <FormControlLabel value="11.00-12.30" control={<Radio />} label="11.00 AM - 12.30 PM" />
-                    <FormControlLabel value="1.00-2.30" control={<Radio />} label="1.00 PM - 2.30 PM" />
-                    <FormControlLabel value="3.00-4.30" control={<Radio />} label="3.00 PM - 4.30 PM" />
+                  {bookedTimeSlots.length > 0 && (
+                    <Typography variant="body2" style={{ marginBottom: '8px' }}>
+                      Previously selected time slots: {bookedTimeSlots.map((timeSlot, index) => timeSlot.bookedTimeSlots).join(', ')}
+                    </Typography>
+                  )}
+                   <RadioGroup
+                        aria-labelledby="timeslot"
+                        name="timeslot"
+                        value={formData.timeslot}
+                        onChange={handleInputChange}
+                    >
+                    {bookedTimeSlots.map((timeSlot, index) => (
+                      <FormControlLabel key={index} value={timeSlot} control={<Radio />} label={timeSlot} />
+                    ))}
+                      <FormControlLabel value="9.00-10.30" control={<Radio />} label="9.00 AM - 10.30 AM" />
+                      <FormControlLabel value="11.00-12.30" control={<Radio />} label="11.00 AM - 12.30 PM" />
+                      <FormControlLabel value="1.00-2.30" control={<Radio />} label="1.00 PM - 2.30 PM" />
+                      <FormControlLabel value="3.00-4.30" control={<Radio />} label="3.00 PM - 4.30 PM" />
                   </RadioGroup>
                 </Grid>
               </Grid>
@@ -202,7 +258,10 @@ const StyledContainer = styled(Container)({
           {/* Confirmation Dialog */}
           <ConfirmSubmission open={open} handleClose={handleClose} handleConfirmSubmit={handleConfirmSubmit} />
         </StyledContainer>
-      </div>
+        </Grid>
+    </div>
+
+    </Box>
     );
   }
   

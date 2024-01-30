@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import {Container,Paper,Typography,TextField,Grid} from '@mui/material';
 import { styled } from '@mui/system';
+import Box from '@mui/system/Box';
 import SubmitButton from '../components/SubmitButton';
 import BasicDatePicker from '../components/datepicker';
 import ConfirmSubmission from '../components/submitconfirm';
+import Drawer from '../components/Drawer/Drawer';
 
 const StyledContainer = styled(Container)({
-    height: '100vh',
+    height: '110vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -35,6 +37,7 @@ const StyledContainer = styled(Container)({
       letterSpacing: '2px',
       fontWeight: 'bold',
       marginTop: '20px',
+      marginBottom: '20px',
     },
   
     bg: {
@@ -48,7 +51,7 @@ function StaffComplain() {
     username : '',
     empId : '',
     designation:'',
-    complaintDate: null,
+    //complaintDate: null,
     title:'',
     details : '',
     
@@ -61,13 +64,13 @@ function StaffComplain() {
   };
 
   const handleClose = () => {
-    // Reset form-related state or perform cleanup if needed
+    
     setOpen(false);
     setFormData({
         username : '',
         empId : '',
         designation:'',
-        complaintDate: null,
+        //complaintDate: null,
         title:'',
         details : '',
     });
@@ -96,17 +99,17 @@ function StaffComplain() {
         errors.details = 'Details is required';
       }
 
-    // If there are validation errors, update state and prevent form submission
+   
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
     } else {
-      // If no validation errors, proceed with form submission
+      
       handleOpen();
     }
   };
 
   const handleConfirmSubmit = () => {
-    // Handle form submission logic here
+    
     console.log('Form submitted!',formData);
     handleClose();
   };
@@ -134,12 +137,17 @@ function StaffComplain() {
     }));
   };
   return (
+
+    <Box>
+      <Drawer/>
+    
     <div style={useStyles.bg}>
-    <StyledContainer component="main" maxWidth="lg">
+    <Grid container sx={{width: '100%'}}>
+    <StyledContainer maxWidth="lg">
       <StyledPaper elevation={3}>
       <Typography variant="h6" style={useStyles.sectionTitle}>Personal Details</Typography>
         <form style={useStyles.form} onSubmit={handleSubmit}>
-          <Grid container spacing={2} style={useStyles.section}>
+          <Grid container spacing={2} >
             <Grid item xs={6}>
               <TextField
                 variant="outlined"
@@ -148,7 +156,6 @@ function StaffComplain() {
                 label="Name"
                 name="username"
                 autoComplete="username"
-                autoFocus
                 value={formData.username}
                 onChange={handleInputChange}
                 error={!!validationErrors.username}
@@ -202,7 +209,7 @@ function StaffComplain() {
 
           <Typography variant="h6" style={useStyles.sectionTitle}>Complain</Typography>
 
-            <Grid item xs={6} style={useStyles.section}>
+            <Grid style={useStyles.section}>
               <TextField
                 variant="outlined"
                 fullWidth
@@ -210,7 +217,6 @@ function StaffComplain() {
                 label="Title"
                 name="title"
                 autoComplete="title"
-                autoFocus
                 value={formData.title}
                 onChange={handleInputChange}
                 error={!!validationErrors.title}
@@ -245,7 +251,10 @@ function StaffComplain() {
       {/* Confirmation Dialog */}
       <ConfirmSubmission open={open} handleClose={handleClose} handleConfirmSubmit={handleConfirmSubmit} />
     </StyledContainer>
+    </Grid>
     </div>
+
+    </Box>
   );
 }
 

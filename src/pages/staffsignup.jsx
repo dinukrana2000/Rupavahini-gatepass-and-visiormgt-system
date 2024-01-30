@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Container, Paper, Grid, Typography, TextField } from '@mui/material';
+import {Container,Paper,Grid,Typography,InputLabel,FormControl,TextField,Select,MenuItem} from '@mui/material';
 import { styled } from '@mui/system';
 import RightSideImage from '../assets/rafiki.png';
 import SubmitButton from '../components/SubmitButton';
 import ConfirmSubmission from '../components/submitconfirm';
+import Drawer from '../components/Drawer/Drawer';
+import Box from '@mui/system/Box';
 
 const StyledContainer = styled(Container)({
-  height: '100vh',
+  height: '110vh',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -26,15 +28,14 @@ const useStyles = {
 
   section: {
     marginBottom: '10px',
-    marginTop: '5px',
   },
 
   sectionTitle: {
     textAlign: 'center',
     fontFamily: 'Montserrat, sans-serif',
-    letterSpacing: '2px',
+    letterSpacing: '1dvh',
     fontWeight: 'bold',
-    marginBottom: '10px'
+    marginBottom: '10px',
   },
   r_image: {
     maxWidth: '100%',
@@ -49,21 +50,22 @@ const useStyles = {
     left: 0,
     bottom: 0,
     maxWidth: '100%',
-    height: 'auto'
-  }
+    height: 'auto',
+  },
 };
 
-function User() {
+function Staff() {
   const [open, setOpen] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
-    fullname: '',
+    empId: '',
+    division: '',
     email: '',
     contactNo: '',
     password: '',
-    confirmPassword: '',
+    confirmpwd: '',
   });
-
+  
   const [validationErrors, setValidationErrors] = useState({});
 
   const handleOpen = () => {
@@ -74,23 +76,28 @@ function User() {
     setOpen(false);
     setFormData({
       username: '',
-      fullname: '',
+      empId: '',
+      division: '',
       email: '',
       contactNo: '',
       password: '',
-      confirmPassword: '',
+      confirmpwd: '',
     });
     setValidationErrors({});
+    
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = {};
+
     if (!formData.username.trim()) {
-      errors.username = 'User name is required';
+      errors.username = 'Full name is required';
     }
-    if (!formData.fullname.trim()) {
-      errors.fullname = 'Full name is required';
+    if (!formData.empId.trim()) {
+      errors.empId = 'Employee ID is required';
+    }
+    if (!formData.division.trim()) {
+      errors.division = 'Division is required';
     }
     if (!formData.email.trim()) {
       errors.email = 'Email is required';
@@ -99,20 +106,24 @@ function User() {
     }
     if (!formData.contactNo.trim()) {
       errors.contactNo = 'Contact number is required';
+    } else if (!/^\d{10}$/.test(formData.contactNo)) {
+      errors.contactNo = 'Contact number must be 10 digits long';
     }
     if (!formData.password.trim()) {
       errors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      errors.password = 'Password must be at least 6 characters';
+    } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/.test(formData.password)) {
+      errors.password = 'Password must contain at least one lowercase letter, one uppercase letter, one digit, and be at least 6 characters long';
     }
-    if (formData.password !== formData.confirmPassword) {
-      errors.confirmPassword = 'Passwords must match';
+    if (formData.password !== formData.confirmpwd) {
+      errors.confirmpwd = 'Passwords must match';
     }
 
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
+     
     } else {
       handleOpen();
+      
     }
   };
 
@@ -139,21 +150,27 @@ function User() {
   };
 
   return (
+    <Box>
+      <Drawer/>
+    
     <div style={useStyles.bg}>
-      <StyledContainer component="main" maxWidth="lg" >
+    <Grid container sx={{width: '100%'}}>
+      <StyledContainer maxWidth="lg">
         <StyledPaper elevation={3}>
           <form style={useStyles.form} onSubmit={handleSubmit}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
-                <Typography variant="h6" style={useStyles.sectionTitle}>Create Account</Typography>
+                <Typography variant="h6" style={useStyles.sectionTitle}>
+                  Create Account
+                </Typography>
+
                 <TextField
                   variant="outlined"
                   fullWidth
                   id="username"
-                  label="User Name"
+                  label="Full Name"
                   name="username"
                   autoComplete="username"
-                  autoFocus
                   value={formData.username}
                   onChange={handleInputChange}
                   error={!!validationErrors.username}
@@ -163,17 +180,43 @@ function User() {
                 <TextField
                   variant="outlined"
                   fullWidth
-                  id="fullname"
-                  label="Full Name"
-                  name="fullname"
-                  autoComplete="fullname"
-                  autoFocus
-                  value={formData.fullname}
+                  id="empId"
+                  label="Employee ID"
+                  name="empId"
+                  autoComplete="empId"
+                  value={formData.empId}
                   onChange={handleInputChange}
-                  error={!!validationErrors.fullname}
-                  helperText={validationErrors.fullname}
+                  error={!!validationErrors.empId}
+                  helperText={validationErrors.empId}
                   style={useStyles.section}
                 />
+
+                <FormControl fullWidth>
+                  <InputLabel id="Division">Division</InputLabel>
+                  <Select
+                    labelId="Division"
+                    id="division"
+                    name="division"
+                    autoComplete="division"
+                    label="Division"
+                    value={formData.division}
+                    onChange={handleInputChange}
+                    style={useStyles.section}
+                  >
+                    <MenuItem value="division1">Division 1</MenuItem>
+                    <MenuItem value="division2">Division 2</MenuItem>
+                    <MenuItem value="division3">Division 3</MenuItem>
+                    <MenuItem value="division4">Division 4</MenuItem>
+                    <MenuItem value="division5">Division 5</MenuItem>
+                    <MenuItem value="division6">Division 6</MenuItem>
+                  </Select>
+                  {validationErrors.division && (
+                    <Typography variant="caption" color="error">
+                      {validationErrors.division}
+                    </Typography>
+                  )}
+                </FormControl>
+
                 <TextField
                   variant="outlined"
                   fullWidth
@@ -187,6 +230,7 @@ function User() {
                   helperText={validationErrors.email}
                   style={useStyles.section}
                 />
+
                 <TextField
                   variant="outlined"
                   fullWidth
@@ -200,53 +244,66 @@ function User() {
                   helperText={validationErrors.contactNo}
                   style={useStyles.section}
                 />
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="password"
-                  label="Password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  error={!!validationErrors.password}
-                  helperText={validationErrors.password}
-                  style={useStyles.section}
-                />
-                <TextField
-                  variant="outlined"
-                  fullWidth
-                  id="confirmPassword"
-                  label="Confirm Password"
-                  name="confirmPassword"
-                  type="password"
-                  autoComplete="new-password"
-                  value={formData.confirmPassword}
-                  onChange={handleInputChange}
-                  error={!!validationErrors.confirmPassword}
-                  helperText={validationErrors.confirmPassword}
-                  style={useStyles.section}
-                />
+                <Grid container spacing={2}>
+              <Grid item xs={12} sm={6}>
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="password"
+                      label="Password"
+                      name="password"
+                      type="password"
+                      autoComplete="new-password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      error={!!validationErrors.password}
+                      helperText={validationErrors.password}
+                      style={useStyles.section}
+                    />
+                    </Grid>
+
+                <Grid item xs={12} sm={6}>
+                    <TextField
+                      variant="outlined"
+                      fullWidth
+                      id="confirmpwd"
+                      label="Confirm Password"
+                      name="confirmpwd"
+                      type="password"
+                      autoComplete="new-password"
+                      value={formData.confirmpwd}
+                      onChange={handleInputChange}
+                      error={!!validationErrors.confirmpwd}
+                      helperText={validationErrors.confirmpwd}
+                      style={useStyles.section}
+                    />
+                </Grid>
+          </Grid>
                 <Grid style={{ display: 'flex', justifyContent: 'center' }}>
                   <SubmitButton label="Sign Up" onClick={handleSubmit} />
                 </Grid>
               </Grid>
-              <Grid item xs={12} sm={6} style={{ display: 'flex', justifyContent: 'center' }}>
-                <img src={RightSideImage} alt="signup" style={useStyles.r_image} />
+
+              <Grid item xs={12} sm={6} display={{ xs: 'none', sm: 'block' }}>
+                <Box sx={{display: 'flex',justifyContent: 'center',alignItems: 'center',height: '100%',}}>
+                  <img src={RightSideImage} alt="signup" style={useStyles.r_image} />
+                </Box>
               </Grid>
             </Grid>
+          
           </form>
+
           {/* Confirmation Dialog */}
-          <ConfirmSubmission
-            open={open}
-            handleClose={handleClose}
-            handleConfirmSubmit={handleConfirmSubmit}
-          />
+          <ConfirmSubmission open={open} handleClose={handleClose} handleConfirmSubmit={handleConfirmSubmit} />
         </StyledPaper>
       </StyledContainer>
+      </Grid>
     </div>
+
+    </Box>
+
+    
   );
 }
 
-export default User;
+export default Staff;

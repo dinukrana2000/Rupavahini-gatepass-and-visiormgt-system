@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 import { TextField, Grid, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 import './Form.css';
-import SubmitButton from "../Components/Button/SubmitButton";
+import SubmitButton from "../../Components/Button/SubmitButton";
 // import axios from 'axios';
-import Drawer from "../Components/Drawer/Drawer"
+import Drawer from "../../Components/Drawer/Drawer"
 
 const useStyles = { 
     section: {

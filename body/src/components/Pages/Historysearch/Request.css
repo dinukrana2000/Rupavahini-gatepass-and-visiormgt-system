@@ -24,10 +24,12 @@ body {
     align-items: center;
   }
   .request{
-   
+      
       display: flex;
       align-items: center;
       justify-content: center;
+      position:"absolute";
+      right:"0";
       width: 30vw; 
       height: 5vh; 
      background-image: url('../../../assets/view.png');

@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import "./Request.css";
 import Grid from '@mui/material/Grid';
-import Alert from "../../Components/Alert/Alert";
-import Drawer from "../../Components/Drawer/Drawer"; 
+import Alert from "../../components/Alert/Alert";
+import Drawer from "../../components/Drawer/Drawer"; 
 import axios from "axios";
 
 const Request = () => {

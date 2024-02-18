@@ -62,10 +62,10 @@ const Request = () => {
                   <>
                     {yearData.map((item, index) => (
                       <div className="request" key={index}>
-                        <Grid item xs={10} sx={{ color: "white" }}>
+                        <Grid item xs={6} sx={{ color: "white" }}>
                           <div style={{ marginLeft: "20px" }}>{item}</div>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={3}>
                           <div>
                             <Link to={"/search/1/view"}>
                               <Button
@@ -74,8 +74,8 @@ const Request = () => {
                                   backgroundColor: "#973535",
                                   marginLeft: "20px",
                                   borderRadius: "20px",
-                                  width: "100px",
-                                  height: "4vh",
+                                  width: "80px",
+                                  height: "3.5vh",
                                   "&:hover": {
                                     backgroundColor: "#811F15",
                                     color: "#EEC01F",
@@ -83,6 +83,27 @@ const Request = () => {
                                 }}
                               >
                                 view
+                              </Button>
+                            </Link>
+                          </div>
+                        </Grid> <Grid item xs={3}>
+                          <div>
+                            <Link to={"Report"}>
+                              <Button
+                                variant="contained"
+                                sx={{
+                                  backgroundColor: "#973535",
+                                  marginLeft: "20px",
+                                  borderRadius: "20px",
+                                  width: "90px",
+                                  height: "3.5vh",
+                                  "&:hover": {
+                                    backgroundColor: "#811F15",
+                                    color: "#EEC01F",
+                                  },
+                                }}
+                              >
+                                Download
                               </Button>
                             </Link>
                           </div>
@@ -128,7 +149,7 @@ const Request = () => {
                   <>
                     {dayData.map((item, index) => (
                       <div className="request" key={index}>
-                        <Grid item xs={10} sx={{ color: "white" }}>
+                        <Grid item xs={8} sx={{ color: "white" }}>
                           <div style={{ marginLeft: "20px" }}>{item}</div>
                         </Grid>
                         <Grid item xs={2}>

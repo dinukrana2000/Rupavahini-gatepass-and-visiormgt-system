@@ -25,7 +25,7 @@ const Report = () => {
     const blob = new Blob([reportContent], { type: "text/html" });
 
     // Create a URL for the blob
-    const url = URL.createObjectURL(blob);
+    const url = URL.createObjectURL(blob); 
 
     // Create a link element
     const link = document.createElement("a");

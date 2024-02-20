@@ -1,26 +1,43 @@
 import React, {useEffect, useState} from "react";
 import "./Request.css";
 import Grid from '@mui/material/Grid';
-import Alert from "../../Components/Alert/Alert";
-import Drawer from "../../Components/Drawer/Drawer"; 
+import Alert from "../../components/Alert/Alert";
+import Drawer from "../../components/Drawer/Drawer"; 
 import axios from "axios";
 
 const Request = () => {
  
   const [visitRequests, setVisitRequests] = useState([]);
   const [appoinmentRequests, setAppoinmentRequests] = useState([]);
-const handleDeleteRequest = (requestId,type) => {
+
+const handleDeleteRequest=async (requestId,type) => {
 
   if(type==='visit')
   {
-    const updatedRequests = visitRequests.filter(request => request._id !== requestId);
-  
-    setVisitRequests(updatedRequests);
+    await axios.delete(`http://localhost:4000/deleterupreq/${requestId}`)
+    .then(response => {
+      // Handle the response data
+      const updatedRequests = visitRequests.filter(request => request._id !== requestId);  
+      setVisitRequests(updatedRequests);
+  })
+  .catch(error => {
+      // Handle errors
+      console.error('Error fetching data:', error);
+  });
+    
   }
   else{
-    const updatedRequests = appoinmentRequests.filter(request => request._id !== requestId);
-  
-    setAppoinmentRequests(updatedRequests);
+    await axios.delete(`http://localhost:4000/deleteappoinment/${requestId}`)
+    .then(response => {
+      // Handle the response data
+      const updatedRequests = appoinmentRequests.filter(request => request._id !== requestId);  
+      setAppoinmentRequests(updatedRequests);
+  })
+  .catch(error => {
+      // Handle errors
+      console.error('Error fetching data:', error);
+  });
+    
   }
  
 };
@@ -38,7 +55,7 @@ await axios.get('http://localhost:4000/user/:username')
 },[])
 
 useEffect(()=>async()=>{
-  await axios.get('http://localhost:4000/appointmentreq/:username1')
+  await axios.get('http://localhost:4000/appointmentreq/:username')
   .then(response => {
       // Handle the response data
       console.log(response.data); // Assuming response.data is an array of requests
@@ -55,7 +72,8 @@ useEffect(()=>async()=>{
     <>
     <Drawer/> 
     <div>
-      <div className="blur-image">
+      <div className="blur-image" >
+      <div style={{ height: "450px", overflowY: "auto" }}>
      {visitRequests.map(request => (
         <div className="rectangle-col" key={request._id}>
         <Grid container className="rectangle" spacing={0}>
@@ -86,6 +104,7 @@ useEffect(()=>async()=>{
     </Grid>
         </div>
       ))} 
+      </div>
       </div>
       </div>
       </>

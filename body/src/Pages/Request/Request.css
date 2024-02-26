@@ -1,61 +1,101 @@
+/* Request.css */
 
 body {
-    margin: 0; 
-    padding: 0; 
-    height: 100vh; 
-    background-image: url('../../assets/userpage1.png'); 
-    background-size: cover; 
-    background-position: center; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white; 
-  }
- 
-  .blur-image{
-    background-color:rgba(41, 147, 196, 0.651);
-     border-radius: 50px;
-     box-shadow: 0px 4px 25px 0px rgba(255, 255, 255, 10);;
-    width: 80vw;
-    height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: url('../../assets/userpage1.png');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
 
-  .rectangle-col{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-  width: 50vw; 
-  height: 10vh; 
-   
-   background-image: url('../../assets/request.png');
-  border-radius: 20px;
-  margin-bottom: 3vh;
+.blur-image {
+  background-color: rgba(255, 255, 255, 0.658);
+
+  border-radius: 50px;
   
+  width: 60vw;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Added padding for better spacing */
 }
 
-.rectangle{
+.rectangle-col {
+  display: flex ; 
+  align-items: center;
+  justify-content: space-between;
+  background-color: #973535;
+  border: 2px solid white;
+  width: 100%; /* Adjusted width to fit the container */
+  max-width: 600px; /* Added max-width for better responsiveness */
+  height: 10vh;
+  border-radius: 20px;
+  margin-bottom: 1vh;
+  padding: 10px; /* Added padding for better spacing */
+}
+
+.rectangle {
+  font-size: larger;
+}
+
+.request {
+  font-size: larger;
+  margin-left: 3vw;
+  border-color: black;
+  color: white;
+}
+
+.cancel {
+  font-size: larger;
+  margin-right: 3vw;
+  border-color: black;
+  margin-top: 2vh;
+}
+
+.report {
+  margin-bottom: 10px;
+  border: 5px solid #973535;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  padding: 10px; /* Added padding for better spacing */
+}
+
+.report-item {
+  margin-bottom: 5px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.value {
+  margin-left: 10px;
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+  .rectangle-col {
+    flex-direction: column;
+    height: auto;
+  }
+  .cancel button {
+    width: 30px;
+    height: 1%;
+    font-size: 8px;
     
-    font-size: larger;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+  }
+  .view button{
+    width: 80px;
+    height: 30px;
+    font-size: 12px;
+
+  }
 }
 
-
-.request{
-    font-size: larger;
-    margin-left: 3vw;
-    border-color: black;
-    color: white;
-}
-
-.cancel{
-    font-size: larger;
-    margin-right: 3vw;
-    border-color: black;
-}

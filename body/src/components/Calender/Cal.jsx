@@ -4,30 +4,33 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import axios from "axios";
 import dayjs from 'dayjs';
 import './Calender.css';
 
 const Cal = ({ onYearChange, onMonthChange, onDataChange }) => {
   const [data, setData] = useState([]);
 
-  const handleYearChange = (value) => {
+  const handleYearChange = async(value) => {
     const clickedYear = value.$y;
     console.log("year", clickedYear);
-    const fetchedData = fetchData(clickedYear);
+    const fetchedData = await fetchData(clickedYear);
+    console.log(fetchedData)
     setData(fetchedData);
     onYearChange(fetchedData);
   };
 
-  const handleMonthChange = (value) => {
+  const handleMonthChange =async (value) => {
     const clickedMonth = value.$M + 1; // Adjust month to start from 1
     const clickedYear = value.$y;
 
-    const fetchedData = fetchData(clickedYear, clickedMonth);
+    const fetchedData = await fetchData(clickedYear, clickedMonth);
+    console.log(fetchedData)
     setData(fetchedData);
     onMonthChange(fetchedData);
   };
 
-  const handleDayClick = (value) => {
+  const handleDayClick = async(value) => {
     const clickedDay = value.$D;
     const clickedMonth = value.$M + 1;
     const clickedYear = value.$y;
@@ -36,28 +39,78 @@ const Cal = ({ onYearChange, onMonthChange, onDataChange }) => {
     console.log("Clicked Month:", clickedMonth);
     console.log("Clicked Year:", clickedYear);
 
-    const fetchedData = [`Activity ${clickedDay}/${clickedMonth}/${clickedYear}`];
+    const fetchedData = await fetchDayData(clickedYear, clickedMonth,clickedDay);
+    console.log(fetchedData)
     setData(fetchedData);
     onDataChange(fetchedData);
   };
 
-  const fetchData = (year, month = null) => {
-    const data = [];
-
-    if (month) {
-      const daysInMonth = new Date(year, month, 0).getDate();
-
-      for (let i = 1; i <= daysInMonth; i++) {
-        data.push(`Activity ${i}/${month}/${year}`);
-      }
-    } else {
-      for (let i = 1; i <= 12; i++) {
-        data.push(`Activity for ${i}/${year}`);
-      }
+  const fetchData = async (year, month = null, date = null) => {
+    let data = [];
+    let responseData = [];
+    try {
+        const response = await axios.get(`http://localhost:4000/requests/${year}`);
+        responseData = response.data; // Assuming responseData is an array of objects with a 'currentDate' property
+    } catch (error) {
+        console.error("Error fetching data:", error);
     }
 
-    return data;
-  };
+    const groupedData = {};
+    responseData.forEach(item => {
+        const date = new Date(item.currentDate);
+        const monthKey = `${date.getMonth() + 1}/${date.getFullYear()}`;
+        const dayKey = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+
+        if (!groupedData[monthKey]) {
+            groupedData[monthKey] = {};
+        }
+
+        if (!groupedData[monthKey][dayKey]) {
+            groupedData[monthKey][dayKey] = [];
+        }
+
+        groupedData[monthKey][dayKey].push(item);
+    });
+
+    if (!month && !date) {
+        const keys = Object.keys(groupedData);
+        for (let i = 0; i < keys.length; i++) {
+            data.push(`Activity for ${keys[i]} `);
+            responseData.push(groupedData[keys[i]]);
+        }
+    } else if (month && !date) {
+        const keys = Object.keys(groupedData[`${month}/${year}`]);
+        for (let i = 0; i < keys.length; i++) {
+            data.push(`Activity for ${keys[i]} `);
+            responseData.push(groupedData[keys[i]]);
+        }
+    }
+
+    return { data, responseData };
+};
+
+
+
+
+const fetchDayData=async(year,month,day)=>{
+  let data = [];
+  let responseData=[]
+  try {
+      const { data: response } = await axios.get(`http://localhost:4000/requests/${year}/${month}/${day}`);
+     // console.log(responseData)
+     responseData=response
+      if(responseData.length>0){
+        data.push(`Activity for ${day}/${month}/${year}`)        
+      }
+      
+  } catch (error) {
+      console.error("Error fetching data:", error);
+  }
+
+  return {data,responseData}
+
+}
+
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>

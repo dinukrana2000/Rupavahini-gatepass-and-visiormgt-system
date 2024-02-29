@@ -1,5 +1,5 @@
 // Request.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Request.css";
 import Calender from "../../Calender/Cal";
 import Grid from "@mui/material/Grid";
@@ -13,22 +13,36 @@ const Request = () => {
   const [dayData, setDayData] = useState([]);
 
   const handleYearDataChange = (data) => {
-    setYearData(data);
+    setYearData(data.data);
     setMonthData([]);
     setDayData([]);
   };
 
   const handleMonthDataChange = (data) => {
-    setMonthData(data);
+    setMonthData(data.data);
     setYearData([]);
     setDayData([]);
   };
 
   const handleDayDataChange = (data) => {
-    setDayData(data);
+    setDayData(data.data);
     setMonthData([]);
     setYearData([]);
   };
+
+
+/*   useEffect(()=>{
+    const fetchData = async () =>{
+      try {
+        const yearResponse = await axios.get("/requests/:year");
+        setYearData(yearResponse.data);
+      }
+      catch(error){
+        console.error("Error fetching data:",error)
+      }
+
+    }
+  }) */
 
   return (
     <>

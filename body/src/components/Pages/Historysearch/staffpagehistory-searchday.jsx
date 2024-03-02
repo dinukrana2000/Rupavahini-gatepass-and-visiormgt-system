@@ -4,13 +4,19 @@ import "./Request.css";
 import Calender from "../../Calender/Cal";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Drawer from "../../Drawer/Drawer";
 
 const Request = () => {
   const [yearData, setYearData] = useState([]);
   const [monthData, setMonthData] = useState([]);
   const [dayData, setDayData] = useState([]);
+
+  const navigate =useNavigate();
+
+  const handleClick =  (item) =>{
+        navigate("./Search/view",{state:item})
+  }
 
   const handleYearDataChange = (data) => {
     setYearData(data.data);
@@ -81,7 +87,7 @@ const Request = () => {
                         </Grid>
                         <Grid item xs={3}>
                           <div>
-                            <Link to={"/search/1/view"}>
+                           
                               <Button
                                 variant="contained"
                                 sx={{
@@ -95,10 +101,11 @@ const Request = () => {
                                     color: "#EEC01F",
                                   },
                                 }}
+                                onClick={() =>{handleClick(item)}}
                               >
                                 view
                               </Button>
-                            </Link>
+                          
                           </div>
                         </Grid> <Grid item xs={3}>
                           <div>

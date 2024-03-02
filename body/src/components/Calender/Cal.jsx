@@ -50,6 +50,7 @@ const Cal = ({ onYearChange, onMonthChange, onDataChange }) => {
     let responseData = [];
     try {
         const response = await axios.get(`http://localhost:4000/requests/${year}`);
+        console.log(responseData)
         responseData = response.data; // Assuming responseData is an array of objects with a 'currentDate' property
     } catch (error) {
         console.error("Error fetching data:", error);
@@ -73,19 +74,25 @@ const Cal = ({ onYearChange, onMonthChange, onDataChange }) => {
     });
 
     if (!month && !date) {
-        const keys = Object.keys(groupedData);
-        for (let i = 0; i < keys.length; i++) {
-            data.push(`Activity for ${keys[i]} `);
-            responseData.push(groupedData[keys[i]]);
-        }
-    } else if (month && !date) {
-        const keys = Object.keys(groupedData[`${month}/${year}`]);
-        for (let i = 0; i < keys.length; i++) {
-            data.push(`Activity for ${keys[i]} `);
-            responseData.push(groupedData[keys[i]]);
-        }
-    }
-
+      const keys = Object.keys(groupedData);
+      for (let i = 0; i < keys.length; i++) {
+          data.push(`Activity for ${keys[i]} `);
+          responseData.push(groupedData[keys[i]]);
+      }
+  } else if (month && !date) {
+      const monthKey = `${month}/${year}`;
+      if (groupedData[monthKey]) {
+          const keys = Object.keys(groupedData[monthKey]);
+          for (let i = 0; i < keys.length; i++) {
+              data.push(`Activity for ${keys[i]} `);
+              responseData.push(groupedData[monthKey][keys[i]]);
+          }
+      } else {
+          // Handle case where data for the selected month is not available
+          console.log(`No data available for ${monthKey}`);
+      }
+  }
+  
     return { data, responseData };
 };
 
